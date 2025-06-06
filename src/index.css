@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --text-primary: #242B35;
+  background-color: #F1F3F6;
+}
+
+@font-face {
+  font-family: 'GT Walsheim';
+  src: url('./assets/fonts/subset-GTWalsheim-Regular-_1.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GT Walsheim';
+  src: url('./assets/fonts/subset-GTWalsheim-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GT Walsheim';
+  src: url('./assets/fonts/subset-GTWalsheim-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  font-family: 'GT Walsheim', sans-serif;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+a { 
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+
+button {
+  font-family: 'GT Walsheim', sans-serif;
+  font-size: 14px;
+}
+
+.breadcrumb-bg {
+  background-color: #102C79;
+}
+
+.disabled-category-breadcrumb {
+ color: #7C9AED;
+}
+
+.card-shadow {
+  box-shadow: 0px 0px 20px 0px #0000000D;
+}
+
+.grey-background {
+  background-color: #F1F3F6;
+}
+
+.bg-soft-blue {
+  background-color: #3179BD;
+}
+
+.font-soft-blue {
+  color: #3179BD;
+}
+
+.bg-soft-blue:hover {
+  background-color: #102C79;
+}
+
+.light-gray-bg {
+  background-color: #C8CED9;
+}
+
+.light-gray-text {
+  color: #C8CED9;
+}
+
+.light-gray-border {
+  border-color: #C8CED9;
+}
+
+.font-title {
+  font-size: 18px;
+}
+
+.group-product {
+  font-size: 10px;
+}
+
+.light-blue-text {
+  color: #ABB7CD
+}
+
+.name-product {
+ color: #242B35;
+}
+
+.detail-product {
+  padding: 6px 8px;
+  border-radius: 6px;
+  color: #374D75;
+}
+
+.hr-custom {
+  border: none;
+  height: 1.8px;
+  background-color: #E0E2EC;
+  width: 100%;
+}
+
+.vertical-line {
+  border-right: 3px dotted #C8CED9; 
+}
+
+.green-text {
+  color: #26B489;
+}
+
+.rates-title {
+  font-size: 16px;
+}
+
+.rates-subtitle {
+  font-size: 12px;
+}
+
+.subtitle-gray {
+  color: #8292AA;
+}
+
+input[type="checkbox"]:checked {
+  accent-color: #3179BD;
+}
+
+.lighted-blue-bg {
+background-color: #F0F4FD;
+}
+
+.filter-arrow-color {
+  color: #9B9FB7;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.bg-soft-red {
+  background-color: #E91248;
+}
+
+.bg-soft-green {
+  background-color: #E5F6F0;
+}
