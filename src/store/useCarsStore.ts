@@ -123,11 +123,14 @@ export const useCarStore = create<CarStore>((set, get) => ({
   }),
 
 
-  removeFromCart: (carCode, rateCode) => {
-    set(state => ({
-      cart: state.cart.filter(item => !(item.carCode === carCode && item.rateCode === rateCode))
-    }));
-  },
+  removeFromCart: (carCode, rateCode) =>
+  set((state) => ({
+    cart: state.cart.filter(
+      (item) => !(item.carCode === carCode && item.rateCode === rateCode)
+    ),
+  })),
+
 
   clearCart: () => set({ cart: [] }),
 }));
+

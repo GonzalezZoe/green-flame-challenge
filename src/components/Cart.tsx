@@ -5,7 +5,9 @@ export const Cart = () => {
   const removeFromCart = useCarStore(state => state.removeFromCart);
 
   return (
-    <div className="bg-white shadow-md fixed bottom-0 z-10 w-full">
+    <div className={`bg-white shadow-md fixed bottom-0 z-10 w-full transition-all duration-300 ${
+        cart.length > 0 ? 'block' : 'hidden'
+      }`}>
       <ul className="container mx-auto p-4">
         {cart.map(({ carCode, rateCode, priceCOP, priceUSD, rateName, company_name }, i) => {
             const cleanCompanyName = company_name.trim().toLowerCase();
