@@ -1,9 +1,12 @@
 ## Green Flame Challenge
 
 Bienvenido/a al repositorio de mi resolución a un challenge técnico Front End para Green Flame. 
+
+
 ![imagen](https://github.com/user-attachments/assets/53780202-88dd-46a4-b33b-811555412401)
 
 Aquí encontrará los archivos necesarios para ejecutar el proyecto de manera local + información adicional acerca del proyecto.
+
 IMPORTANTE: Los cambios se encuentran en la rama MAIN.
 
 🚀 Instalación y configuración
