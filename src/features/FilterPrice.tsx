@@ -5,7 +5,7 @@ const orderOptions = [
   { code: 'asc' as const, label: 'Menor precio' },
 ];
 
-type Option = (typeof orderOptions)[number]; // ← esto es clave
+type Option = (typeof orderOptions)[number];
 
 type FilterPriceProps = {
   onChange?: (order: Option["code"]) => void;

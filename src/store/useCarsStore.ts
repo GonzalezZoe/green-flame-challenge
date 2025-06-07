@@ -22,6 +22,7 @@ export interface CartItem {
   quantity: number;
   rateName: string;
   company_name: string;
+  carPicture: string;
 }
 
 interface CarStore {
@@ -40,7 +41,7 @@ interface CarStore {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (carCode: string, rateCode: string) => void;
-  clearCart: () => void;
+  clearCart: () => void; 
 }
 
 export const useCarStore = create<CarStore>((set, get) => ({
@@ -113,23 +114,43 @@ export const useCarStore = create<CarStore>((set, get) => ({
 
   cart: [],
 
-  addToCart: (item) =>
-  set(state => {
-    if (state.cart.length >= 5) {
+addToCart: (item) =>
+  set((state) => {
+
+    const totalQuantity = state.cart.reduce((acc, i) => acc + i.quantity, 0);
+    if (totalQuantity >= 5) {
       alert("No puedes agregar más de 5 productos al carrito.");
       return {};
     }
+
+    const existingIndex = state.cart.findIndex(
+      i => i.carCode === item.carCode && i.rateCode === item.rateCode
+    );
+
+    if (existingIndex !== -1) {
+
+      const updatedCart = [...state.cart];
+      updatedCart[existingIndex].quantity += item.quantity;
+
+      const updatedTotalQuantity = totalQuantity + item.quantity;
+      if (updatedTotalQuantity > 5) {
+        alert("No puedes agregar más de 5 productos al carrito.");
+        return {};
+      }
+
+      return { cart: updatedCart };
+    }
+
     return { cart: [...state.cart, item] };
   }),
 
 
   removeFromCart: (carCode, rateCode) =>
-  set((state) => ({
-    cart: state.cart.filter(
-      (item) => !(item.carCode === carCode && item.rateCode === rateCode)
-    ),
-  })),
-
+    set((state) => ({
+      cart: state.cart.filter(
+        (item) => !(item.carCode === carCode && item.rateCode === rateCode)
+      ),
+    })),
 
   clearCart: () => set({ cart: [] }),
 }));

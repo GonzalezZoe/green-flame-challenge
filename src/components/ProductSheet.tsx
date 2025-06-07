@@ -108,7 +108,7 @@ export const ProductSheet = ({ car }: { car: Car & { company_name: string } }) =
           </div>
         </div>
         <div className="vertical-line"></div>
-        <Prices carCode={car.code} rates={car.rates} />
+        <Prices carCode={car.code} rates={car.rates} companyName={car.company_name} />
       </div>
     </div>
   );

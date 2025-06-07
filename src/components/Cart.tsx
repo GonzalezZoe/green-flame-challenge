@@ -3,19 +3,16 @@ import { useCarStore } from '../store/useCarsStore';
 export const Cart = () => {
   const cart = useCarStore(state => state.cart);
   const removeFromCart = useCarStore(state => state.removeFromCart);
-
   return (
     <div className={`bg-white shadow-md fixed bottom-0 z-10 w-full transition-all duration-300 ${
         cart.length > 0 ? 'block' : 'hidden'
       }`}>
       <ul className="container mx-auto p-4">
-        {cart.map(({ carCode, rateCode, priceCOP, priceUSD, rateName, company_name }, i) => {
-            const cleanCompanyName = company_name.trim().toLowerCase();
-            const iconSrc = cleanCompanyName
+        {cart.map(({ carCode, carPicture, rateCode, priceCOP, priceUSD, rateName, company_name }, i) => {
+          const cleanCompanyName = company_name.trim().toLowerCase();
+          const iconSrc = cleanCompanyName
             ? `/icons/${cleanCompanyName}-logo.svg`
             : '/icons/no-image.svg';
-
-
           return (
             <li
               key={`${carCode}-${rateCode}-${i}`}
@@ -25,7 +22,7 @@ export const Cart = () => {
                 <img
                   src={iconSrc}
                   alt={`${company_name ?? 'unknown'} logo`}
-                  className="w-10 h-10 object-contain"
+                  className="object-contain"
                   onError={(e) => (e.currentTarget.src = '/icons/no-image.svg')}
                 />
                 <div>
@@ -36,7 +33,17 @@ export const Cart = () => {
                 </div>
               </div>
 
-              <div className="flex gap-5">
+              <div className="flex gap-5 items-center">
+                <img
+                  src={carPicture}
+                  alt="Imagen del auto"
+                  className="w-[180px] h-[120px] object-contain"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = '/icons/no-image.svg';
+                  }}
+                />
+
                 <div className="flex flex-col text-right">
                   <p className="font-bold font-title font-soft-blue">
                     COP {priceCOP.toLocaleString()}

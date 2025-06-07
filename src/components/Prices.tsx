@@ -5,14 +5,16 @@ import type { CarRates } from '../types/Car';
 interface PricesProps {
   carCode: string;
   rates: CarRates;
+  companyName: string;
 }
 
-export const Prices = ({ carCode, rates }: PricesProps) => {
+export const Prices = ({ carCode, rates, companyName }: PricesProps) => {
   if (!rates) return null;
 
   const rateEntries = Object.entries(rates);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const allCars = useCarStore(state => state.allCars);
   const addToCart = useCarStore(state => state.addToCart);
   const cart = useCarStore(state => state.cart);
 
@@ -35,28 +37,60 @@ export const Prices = ({ carCode, rates }: PricesProps) => {
   const isAlreadySelected = cart.some(item => item.carCode === carCode && item.rateCode === code);
   const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-  const handleSelect = () => {
-    if (totalQuantity >= 5) return; 
+const trustedDomains = ['https://www.paylesscar.com', 'https://www.budget.com', 'https://www.avis.com'];
 
-    const rateCode = code;
-    const rateName = rate.rate_data.name;
+function getPreferredImageUrl(url?: string): string {
+  if (!url || typeof url !== 'string') {
+    return '/icons/no-image.svg';
+  }
 
-    const allCars = useCarStore.getState().allCars;
+  if (trustedDomains.some(domain => url.startsWith(domain))) {
+    return url;
+  }
 
-    const carWithCompany = allCars.find(c => c.code === carCode);
+  const match = url.match(/([^/]+\.png)$/);
+  const filename = match?.[1];
+  if (filename) {
+    return `/cars/${filename}`;
+  }
 
-    const company_name = carWithCompany?.company_name || 'unknown';
+  return '/icons/no-image.svg';
+}
 
-    addToCart({
-      carCode,
-      rateCode,
-      priceCOP,
-      priceUSD,
-      quantity: 1,
-      rateName,
-      company_name, 
-    });
-  };
+
+const handleSelect = () => {
+  if (totalQuantity >= 5) return;
+
+  const rateCode = code;
+  const rateName = rate.rate_data.name;
+
+  const carWithCompany = allCars.find(
+    c =>
+      c.code === carCode &&
+      c.company_name === companyName && 
+      c.rates &&
+      c.rates[rateCode]
+  );
+  
+  if (!carWithCompany) {
+    alert("No se encontró el auto seleccionado correctamente.");
+    return;
+  }
+
+  const productoSeleccionadoPictureUrl = carWithCompany.picture_url?.normal || '/icons/no-image.svg';
+  const carPicture = getPreferredImageUrl(productoSeleccionadoPictureUrl);
+
+  addToCart({
+    carCode,
+    rateCode,
+    priceCOP,
+    priceUSD,
+    quantity: 1,
+    rateName,
+    company_name: companyName, 
+    carPicture,
+  });
+};
 
   return (
     <div className="relative bg-white p-6 rounded-[16px] card-shadow w-full max-w-[400px]">
