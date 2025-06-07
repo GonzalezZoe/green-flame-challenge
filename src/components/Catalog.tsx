@@ -64,7 +64,7 @@ const Catalog = () => {
 
   return (
     <>
-    <div className='container mx-auto flex gap-10 mt-8'>
+    <div className='container mx-auto flex gap-10 my-8'>
       <Filters />
       <div className="w-full">
         <OrderBy totalCars={sortedCars.length} />
