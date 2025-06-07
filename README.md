@@ -27,4 +27,5 @@ Abrí tu navegador y accede a http://localhost:5173/ o la ruta que se haya cread
     React
     Zustand
     CSS
-   Tailwind
+    Vite
+    Tailwind
