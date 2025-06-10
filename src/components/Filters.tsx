@@ -1,11 +1,15 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { useCarStore } from '../store/useCarsStore';
 import { FilterDropdown } from '../features/FilterDropdown';
+import { Range } from 'react-range';
 
 export const Filters = () => {
   const allCars = useCarStore(state => state.allCars);
   const filters = useCarStore(state => state.filters);
   const setFilters = useCarStore(state => state.setFilters);
+
+  const MIN = 650000;
+  const MAX = 2000000;
 
   const [showCompany, setShowCompany] = useState(false);
   const [showCategory, setShowCategory] = useState(false);
@@ -133,9 +137,35 @@ export const Filters = () => {
         onToggleOption={(val) => toggleSelection(val, filters.luggages, 'luggages')}
         countByOption={countByLuggage}
       />
-
+      
+      <div className='px-6 py-4'>
+      <Range
+        step={10000}
+        min={MIN}
+        max={MAX}
+        values={[filters.priceMin ?? MIN, filters.priceMax ?? MAX]}
+        onChange={([newMin, newMax]) => {
+          onChangePriceMin({ target: { value: newMin } });
+          onChangePriceMax({ target: { value: newMax } });
+        }}
+        renderTrack={({ props, children }) => (
+          <div
+            {...props}
+            className="h-2 bg-gray-300 rounded my-4"
+          >
+            {children}
+          </div>
+        )}
+        renderThumb={({ props }) => (
+          <div
+            {...props}
+            className="h-6 w-6 slide-range rounded-full shadow"
+          />
+        )}
+      />
+    </div>
       <div className="px-6">
-        <p className="font-soft-blue font-bold py-4">Rango de precio (COP)</p>
+        <p className="font-soft-blue font-bold pb-4">Rango de precio (COP)</p>
         <div className="flex flex-col gap-2">
           <div className="flex">
             <span className="flex items-center grey-background filter-arrow-color py-1 px-3 rounded-l-md">COP</span>

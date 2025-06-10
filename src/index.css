@@ -70,6 +70,11 @@ button {
   color: #3179BD;
 }
 
+.slide-range {
+  background-color: #fff;
+  border: 6px solid #3179BD;
+}
+
 .bg-soft-blue:hover {
   background-color: #102C79;
 }
